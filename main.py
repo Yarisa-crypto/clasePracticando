@@ -12,6 +12,11 @@ import os #asdf
 
 load_dotenv()  # ← mover al inicio
 
+from google import genai
+
+def format_role(role: str) -> str:
+    return "Tú" if role == "user" else "Chatbot"
+
 # ── Modelos ──────────────────────────────────────────────
 class Conversation(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -101,8 +106,6 @@ def get_messages(conv_id: int, session: SessionDep):
 
 @app.post("/conversations/{conv_id}/chat", response_model=MessageOut)
 def chat(conv_id: int, body: ChatRequest, session: SessionDep):
-    from google import genai
-
     # 1. Verificar que existe la conversación
     conv = session.get(Conversation, conv_id)
     if not conv:
