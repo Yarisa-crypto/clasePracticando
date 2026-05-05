@@ -10,8 +10,7 @@ from datetime import datetime, timezone
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 import hashlib
-import os
-# Cargar variables de entorno (como DATABASE_URL) asdf
+import os #
 
 load_dotenv()
 
